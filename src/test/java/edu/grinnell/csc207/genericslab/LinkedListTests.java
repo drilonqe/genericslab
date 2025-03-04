@@ -19,22 +19,31 @@ public class LinkedListTests {
         LinkedList l = new LinkedList<>();
         assertEquals(0, l.size());
     }
-    
+
     @Test
     public void listGetSeveral() {
-        LinkedList l = new LinkedList<>();
-        String[] elements = new String[] {"a", "b", "c", "d", "e", "f", "g"};
+        LinkedList<String> l = new LinkedList<>();
+        String[] elements = new String[]{"a", "b", "c", "d", "e", "f", "g"};
         for (int i = 0; i < elements.length; i++) {
             l.add(elements[i]);
         }
         for (int i = 0; i < elements.length; i++) {
             assertEquals(elements[i], l.get(i));
         }
+
+        LinkedList<Integer> l2 = new LinkedList<>();
+        Integer[] nums = {3, 8, 7, 2, 6, 5, 0};
+        for (int i = 0; i < nums.length; i++) {
+            l2.add(nums[i]);
+        }
+        for (int i = 0; i < nums.length; i++) {
+            assertEquals(nums[i], l2.get(i));
+        }
     }
 
     @Test
     public void listGetOOB() {
-        LinkedList l = new LinkedList<>();
+        LinkedList<String> l = new LinkedList<>();
         l.add("hello!");
         l.add("goodbye!");
         l.add("huh?");
@@ -44,31 +53,60 @@ public class LinkedListTests {
         assertThrows(IndexOutOfBoundsException.class, () -> {
             l.get(3);
         });
+
+        LinkedList<Integer> l2 = new LinkedList<>();
+        l2.add(3);
+        l2.add(2);
+        l2.add(7);
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            l2.get(-1);
+        });
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            l2.get(3);
+        });
     }
 
     @Test
     public void listRemoveSome() {
-        LinkedListInt l = new LinkedListInt();
-        l.add(5);
-        l.add(8);
-        l.add(7);
-        l.add(1);
-        l.add(9);
-        
-        assertEquals(7, l.remove(2));
-        assertEquals(8, l.get(1));
-        assertEquals(1, l.get(2));
-        
-        assertEquals(5, l.remove(0));
-        assertEquals(8, l.get(0));
+        LinkedList<String> l = new LinkedList<>();
+        l.add("!");
+        l.add("@");
+        l.add(".");
+        l.add("#");
+        l.add("&");
 
-        assertEquals(9, l.remove(2));
-        assertEquals(1, l.get(1));
+        // @ #
+        assertEquals(".", l.remove(2));
+        assertEquals("@", l.get(1));
+        assertEquals("#", l.get(2));
+
+        assertEquals("!", l.remove(0));
+        assertEquals("@", l.get(0));
+
+        assertEquals("&", l.remove(2));
+        assertEquals("#", l.get(1));
+
+        LinkedList<Integer> l2 = new LinkedList<>();
+        l2.add(5);
+        l2.add(8);
+        l2.add(7);
+        l2.add(1);
+        l2.add(9);
+
+        assertEquals(7, l2.remove(2));
+        assertEquals(8, l2.get(1));
+        assertEquals(1, l2.get(2));
+
+        assertEquals(5, l2.remove(0));
+        assertEquals(8, l2.get(0));
+
+        assertEquals(9, l2.remove(2));
+        assertEquals(1, l2.get(1));
     }
 
     @Test
     public void listRemoveOOB() {
-        LinkedListString l = new LinkedListString();
+        LinkedList <String> l = new LinkedList<>();
         l.add("A");
         l.add("B");
         l.add("C");
@@ -78,6 +116,17 @@ public class LinkedListTests {
         assertThrows(IndexOutOfBoundsException.class, () -> {
             l.remove(3);
         });
+        
+         LinkedList<Integer> l2 = new LinkedList<>();
+        l2.add(5);
+        l2.add(8);
+        l2.add(7);
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            l2.remove(-1);
+        });
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            l2.remove(3);
+        });
+        
     }
 }
-
